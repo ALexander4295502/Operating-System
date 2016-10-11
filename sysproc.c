@@ -55,7 +55,28 @@ return runnable();
 
 }
 
+int
+sys_translate(void)
+{
+int vaddr;
+int procpid;
+if(argint(0, &vaddr)<0)
+{ 
+  cprintf("this  is in sysproc.c return-1!!\n");
+  return -1;
+}
 
+if(argint(1,&procpid)<0)
+{
+  cprintf("this is in sysproc.c pid<0\n");
+}
+
+cprintf("this is in sysproc.c\n");
+cprintf("argint vaddr is: %p\n",vaddr);
+cprintf("argint pid is %d\n",procpid);
+return translate((void*)vaddr,procpid);
+
+}
 
 
 

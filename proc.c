@@ -317,6 +317,63 @@ int wakeall(void)
  return sleeptowakeNUM;
 }
 
+//Translate syscall_____YZ____
+
+int translate(void* vaddr,int procpid)
+{
+
+ struct proc *p; 
+ pte_t *pgtab;
+ pde_t *pde;
+ pte_t *pte;
+ int paddr = 0;
+ pde_t *pgdir = (void*)0;
+ cprintf("vaddr = %p\n",vaddr);
+ acquire(&ptable.lock);
+ for(p = ptable.proc; p<&ptable.proc[NPROC];p++){
+  if(p->pid == procpid){
+   pgdir = p->pgdir; 
+   cprintf("in proc.c the pid is: %d\n",p->pid); 
+  }
+ }
+// pgdir = setupkvm();
+ // int paddr = 0;
+ // int map_err = mappages(pgdir, ptr, sizeof(ptr), paddr, PTE_U|PTE_P);
+ // if(map_err<0){
+  
+ //pgdir = cpu->ts.cr3;
+// cprintf("get pgdir!!!!!!!!!!!!!!!\n");
+ cprintf("page directory base is: %p\n",pgdir);
+ pde = &pgdir[PDX(vaddr)];
+// cprintf("get pde!!!!!!!!!!!!!!!\n");
+ if((*pde & PTE_P)&&(*pde & PTE_U)){
+ pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
+ cprintf("get pgtab!!!!!!!!!!!!!\n");
+ }else{
+ cprintf("pde = %d\n",*pde);
+ cprintf("PTE_P = %d\n",PTE_P);
+ cprintf("pte not present\n");
+ return -1;
+ }
+ pte = &pgtab[PTX(vaddr)];
+// cprintf("get pte!!!!!!!!!!!!!\n");
+ if((*pte & PTE_U)&&(*pte & PTE_P)){
+ paddr = PTE_ADDR(*pte); 
+ cprintf("get paddr!!!!!!!!!!!!!\n");
+  }
+  cprintf("the virtual address is %p\n",vaddr);
+  cprintf("the physical address is %d\n",paddr);
+ // }else{
+ // cprintf("the paddr of the pointer is %d\n",paddr);
+ // }
+ release(&ptable.lock);
+  return 0;
+
+}
+
+
+
+
 //Runnable syscall_____YZ____
 
 int runnable(void)

@@ -117,6 +117,7 @@ void            wakeup(void*);
 void            yield(void);
 int             runnable(void);
 int             wakeall(void);
+int             translate(void*,int);
 //void            runnabletest(void);
 
 // swtch.S

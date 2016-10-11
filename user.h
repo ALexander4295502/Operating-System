@@ -24,10 +24,12 @@ char* sbrk(int);
 int sleep(int);
 int uptime(void);
 void runnabletest(void);
+void nullptrtest(void);
 int runnable(void);
 int wakeall(void);
 void runproctest(void);
 void cprintf(char*,...);
+int translate(void*,int);
 
 // ulib.c
 int stat(char*, struct stat*);

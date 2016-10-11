@@ -100,6 +100,7 @@ extern int sys_write(void);
 extern int sys_uptime(void);
 extern int sys_runnable(void);
 extern int sys_wakeall(void);
+extern int sys_translate(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -125,6 +126,7 @@ static int (*syscalls[])(void) = {
 [SYS_close]   sys_close,
 [SYS_runnable] sys_runnable,
 [SYS_wakeall]  sys_wakeall, 
+[SYS_translate] sys_translate,
 };
 
 void

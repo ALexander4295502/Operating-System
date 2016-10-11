@@ -21,7 +21,6 @@
 #define SYS_mkdir  20
 #define SYS_close  21
 #define SYS_runnable 22
-#define SYS_runnabletest 23
-#define SYS_runproctest 24
 #define SYS_wakeall 25
 #define SYS_cprintf 26
+#define SYS_translate 27
