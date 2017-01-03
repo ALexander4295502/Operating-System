@@ -1,5 +1,5 @@
 
-_zombie：     文件格式 elf32-i386
+_zombie:     file format elf32-i386
 
 
 Disassembly of section .text:

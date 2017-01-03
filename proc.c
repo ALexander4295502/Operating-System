@@ -361,6 +361,8 @@ int translate(void* vaddr,int procpid)
  paddr = PTE_ADDR(*pte); 
  cprintf("get paddr!!!!!!!!!!!!!\n");
   }
+  int poffset = (uint)vaddr & 0xfff;
+  paddr = paddr | poffset;
   cprintf("the virtual address is %p\n",vaddr);
   cprintf("the physical address is %d\n",paddr);
  // }else{

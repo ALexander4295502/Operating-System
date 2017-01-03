@@ -13,11 +13,20 @@
 
 void nullptrtest(void){
 
-//int *np = NULL;
-int b=0;
+int a = 10;
+int *b;
+
+b=&a;
+
+
+printf(1,"a= %d\n",*b);
+int *np;
+
+np = 0;
+
 
 //b=*np;
-printf(1,"b= %p\n",&b);
+printf(1,"NULLpointer= %p\n",np);
 
 
 

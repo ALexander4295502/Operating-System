@@ -1,5 +1,5 @@
 
-_forktest：     文件格式 elf32-i386
+_forktest:     file format elf32-i386
 
 
 Disassembly of section .text:

@@ -1,5 +1,5 @@
 
-_kill：     文件格式 elf32-i386
+_kill:     file format elf32-i386
 
 
 Disassembly of section .text:

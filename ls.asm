@@ -1,5 +1,5 @@
 
-_ls：     文件格式 elf32-i386
+_ls:     file format elf32-i386
 
 
 Disassembly of section .text:

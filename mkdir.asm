@@ -1,5 +1,5 @@
 
-_mkdir：     文件格式 elf32-i386
+_mkdir:     file format elf32-i386
 
 
 Disassembly of section .text:
