@@ -1,0 +1,30 @@
+README_Project2B
+
+Group Member:
+Name            Wustl Key    Student ID
+Zheng Yuan       yuan.z      452091
+Bowen Wang       bowenwang   443953
+Marion Sudvarg   msudvarg    397752
+
+Files updated:
+<1> sys_translate:
+
+	Makefile
+	defs.h
+	syscall.c
+	syscall.h
+	sysproc.c
+	translate.c (for test)
+	user.h
+	usys.S
+In the translate.c, we put a while(1) in the end of the file because we cannot just exit the program, once exit, the resource used by the program may be 
+taken by OS, so we cannot see the correct result in the QEMU monitor.
+The command to see the memory is x(for virtual memory) and xp(for physical memory).
+
+
+<2> Null pointer exception
+
+	Makefile
+	exec.c
+	vm.c
+	nullptrtest.c (for test)
