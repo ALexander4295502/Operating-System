@@ -1,9 +1,0 @@
-Strategy: First fit
-Reason: Since first ﬁt has the advantage of speed — no exhaustive search of all the free spaces are necessary. 
-Besides, since the test will allocate and free the memory in random, the question offragmentation
-is not serious. So the main factor that influences the total time is search. But considering the memory 
-utilization, we think that the first fit stategy is not feasible due to the internal fragmentation and external 
-fragmentation, and buddy allocation is the best choice.
-
-
-
