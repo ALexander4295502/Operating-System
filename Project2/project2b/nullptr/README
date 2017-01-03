@@ -1,0 +1,46 @@
+Name: Marion Sudvarg
+Student ID: 397752
+Wustl key:msudvarg
+
+Name: Bowen Wang
+Student ID: 443953
+Wustl key: bowenwang
+
+Name: Zheng Yuan
+Studnet ID: 452091
+Wustl key:yuan.z
+project2: Null Pointer
+
+This part of the project involves adding null pointer handling to xv6. Since xv6 loads user code into the first part of the address space, dereferencing a null pointer gives whatever code is loaded at address 0, rather than throwing an exception and allowing the hardware to trap back to the OS. This can be demonstrated with code like the following:
+
+	#include "types.h"
+	#include "user.h"
+
+	int main(int argc, char *argv[]) {
+			int *p1;
+			int a;
+			int b;
+			a = 5;
+			p1 = &a;
+			b = *p1;
+			printf(1,"Value pointed by p1: %d\n\n", b);
+			int *p2;
+			p2 = 0;
+			b = *p2;
+			printf(1,"Value pointed by p2: %d\n\n", b);
+			exit();
+	}
+
+As you can see, this program creates a pointer p1, stores the value of a in the memory it points to, then dereferences p1, assigns the value to b, and prints b. This works as expected.
+
+However, the program then creates a null pointer p2, attempts to dereference it, assigns the value to b, and prints b. On most operating systems, we would expect this to cause a page fault. Running similar code on a Linux system gives a "Segmentation fault" error and the program is killed. However, on xv6, it actually prints the integer value stored at the beginning of the virtual address space. (Actually, it is interesting to note that vanilla xv6 causes a trap 6, illegal opcode. But this is due to gcc optimization. Removing the -O2 flag from the CFLAGS in the makefile allows xv6 to print this integer value).
+
+A few changes are necessary to allow xv6 to kill a process dereferencing a null pointer. First, in exec.c, we change the way a program is loaded into memory. Rather than loading the code at the beginning of the virtual address space, we first allocate an inaccessible page at the beginning of the program's address space. The program's code loads after this page.
+
+We also considered the fork function in proc.c. When forking a process, a call to the function copyuvm is made. So we modify this function in vm.c so that the first page of the address space is not copied.
+
+A final change is necessary: We have to change the makefile so that user programs set their entry point after the first page. To do this, we find the LDFLAGS defined for ULIB and set the -Ttext flag to 0x1000, which instructs the linker to compile user programs with an entyr point at virtual address 0x1000.
+
+After these changes are made, the test program above is compiled and run. This time, we see a trap 14 error 5, and the process is killed. A trap 14 corresponds to a page fault, and according to this webpage: http://wiki.osdev.org/Exceptions#Page_Fault, error 5 corresponds to a binary error code of 00101. This means that the P (present) and U (user) bits are both set to 1. In other words, a user mode program attempted to access a present, but inaccessible, page. So in this way, we confirm that our changes successfully added null pointer handling to xv6.
+
+One final note: commenting out the second call to the printf function does not cause a page fault. Instead, the program exits normally, despite the fact that the code is still dereferencing p2 and assigning the value to b. We found that this is due to compiler optimization. Again, removing the flag -O2 from the CFLAGS in the makefile causes a page fault to occur, even with the second printf commented out.

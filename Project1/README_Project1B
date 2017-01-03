@@ -1,0 +1,20 @@
+README_Project1B
+
+Name: Zheng Yuan
+Wustl key: yuan.z@wustl.edu
+
+Summary: add the system call runnable() to get the number of runnable processes and also put the runnabletest 
+         program at https://piazza.com/class/isqd9urt1625qk?cid=14
+
+edited files:
+
+		Makefile 
+		defs.h
+		proc.c
+		runnable.c
+		syscall.c
+		syscall.h
+		sysproc.c
+		user.h
+		usys.S
+
