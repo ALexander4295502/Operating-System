@@ -1,5 +1,3 @@
-Marion Sudvarg  msudvarg            397752
-
 Strategy: First fit
 Reason: Since first ﬁt has the advantage of speed — no exhaustive search of all the free spaces are necessary. 
 Besides, since the test will allocate and free the memory in random, the question offragmentation
